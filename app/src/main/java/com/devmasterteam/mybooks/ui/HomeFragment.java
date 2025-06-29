@@ -44,6 +44,9 @@ public class HomeFragment extends Fragment {
         // Cria os observadores
         observe();
 
+        // Configura o clique do botão de adicionar livro
+        setupFab();
+
         // Retorna elemento raiz
         return binding.getRoot();
     }
@@ -95,5 +98,14 @@ public class HomeFragment extends Fragment {
                 adapter.updateBooks(books);
             }
         });
+    }
+
+    /**
+     * Configura o clique do botão flutuante para navegar até o fragmento de adicionar livro.
+     */
+    private void setupFab() {
+        binding.fabAddBook.setOnClickListener(v ->
+                NavHostFragment.findNavController(HomeFragment.this)
+                        .navigate(R.id.action_navigation_home_to_addBookFragment));
     }
 }

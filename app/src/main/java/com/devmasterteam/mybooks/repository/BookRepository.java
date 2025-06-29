@@ -131,4 +131,17 @@ public class BookRepository {
         }
         return false;
     }
+
+    public void addBook(BookEntity book) {
+        // Busca o maior id já existente
+        int nextId = 1;
+        for (BookEntity b : books) {
+            if (b.getId() >= nextId) {
+                nextId = b.getId() + 1;
+            }
+        }
+        // Cria uma cópia do livro com o novo id (garantindo que o id não será repetido)
+        BookEntity bookWithId = new BookEntity(nextId, book.getTitle(), book.getAuthor(), book.isFavorite(), book.getGenre());
+        books.add(bookWithId);
+    }
 }

@@ -23,4 +23,16 @@
     <string name="desc_back">Imagem de livros</string>
     <string name="desc_favorite">Favoritar / Desfavoritar</string>
 
+    <!-- Botão flutuante -->
+    <string name="add_book">Adicionar Livro</string>
+
+    <!-- Form de cadastro de livro -->
+    <string name="add_book_title_hint">Título</string>
+    <string name="add_book_author_hint">Autor</string>
+    <string name="add_book_genre_hint">Gênero</string>
+    <string name="add_book_favorite">Favorito</string>
+    <string name="add_book_save">Salvar</string>
+
+    <string name="book_saved_success">Livro salvo com sucesso!</string>
+
 </resources>
