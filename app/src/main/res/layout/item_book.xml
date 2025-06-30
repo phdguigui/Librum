@@ -1,62 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_margin="10dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="18dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/card_stroke"
+    android:foreground="?attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/textview_title"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Título do Livro"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textview_genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:text="Gênero"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_title" />
+        <!-- Barra lateral para cor do gênero -->
+        <View
+            android:id="@+id/view_genre_bar"
+            android:layout_width="6dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:background="@color/teal_700" />
 
-    <TextView
-        android:id="@+id/textview_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="Autor"
-        android:textSize="15sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/textview_genre"
-        app:layout_constraintStart_toEndOf="@id/textview_genre" />
+        <!-- Container do conteúdo principal -->
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/view_genre_bar"
+            android:orientation="vertical"
+            android:paddingEnd="40dp"
+            android:layout_marginStart="12dp">
 
-    <ImageView
-        android:id="@+id/imageview_favorite"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:contentDescription="@string/desc_favorite"
-        android:src="@drawable/ic_favorite_empty"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título do Livro"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_genre" />
+            <TextView
+                android:id="@+id/textview_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Autor"
+                android:textSize="14sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif"
+                android:maxLines="1"
+                android:ellipsize="end" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_genre"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gênero"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="6dp"
+                app:chipCornerRadius="8dp"
+                app:chipBackgroundColor="@color/teal_700"
+                app:closeIconEnabled="false"
+                app:checkedIconEnabled="false"
+                app:ensureMinTouchTargetSize="false" />
+
+        </LinearLayout>
+
+        <!-- Botão de favorito com sombra -->
+        <ImageButton
+            android:id="@+id/imageview_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_fab_favorite"
+            android:src="@drawable/ic_favorite_empty"
+            android:contentDescription="@string/desc_favorite"
+            android:elevation="6dp"
+            app:rippleColor="@color/amber_200"
+            app:tint="@color/amber_500" />
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Nome do aplicativo -->
-    <string name="app_name">MyBooks</string>
+    <string name="app_name">Librum</string>
 
     <!-- Títulos das telas -->
     <string name="title_home">Home</string>
@@ -32,7 +32,14 @@
     <string name="add_book_genre_hint">Gênero</string>
     <string name="add_book_favorite">Favorito</string>
     <string name="add_book_save">Salvar</string>
-
     <string name="book_saved_success">Livro salvo com sucesso!</string>
+
+    <string name="language">Idioma</string>
+    <string name="theme">Tema</string>
+    <string name="portuguese">Português</string>
+    <string name="english">Inglês</string>
+    <string name="night_mode_on">Modo noturno ativado</string>
+    <string name="night_mode_off">Modo diurno ativado</string>
+    <string name="select_language">Selecionar idioma</string>
 
 </resources>

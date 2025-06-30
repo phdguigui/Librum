@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+    <!-- Livro aberto estilizado -->
+    <path
+        android:fillColor="#3949AB"
+        android:pathData="M4,8 Q4,6 6,6 L15,10 L15,26 Q14,27 12,26 Q8,24 4,26 Z" />
+    <path
+        android:fillColor="#7986CB"
+        android:pathData="M28,8 Q28,6 26,6 L17,10 L17,26 Q18,27 20,26 Q24,24 28,26 Z" />
+    <!-- Lombada central (reta vertical) -->
+</vector>

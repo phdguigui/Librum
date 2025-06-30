@@ -11,4 +11,11 @@
     <color name="gold">#FFD700</color>
     <color name="blue">#1E90FF</color>
     <color name="light_red">#FF6347</color>
+    <color name="amber_200">#FFE082</color>
+    <color name="red_700">#D32F2F</color>
+    <color name="cyan_700">#0097A7</color>
+    <color name="pink_500">#E91E63</color>
+    <color name="amber_500">#FFC107</color>
+    <color name="card_stroke">#00000000</color>
+    <color name="icon_language">#212121</color>
 </resources>

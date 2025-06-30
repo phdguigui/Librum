@@ -1,5 +1,11 @@
 package com.devmasterteam.mybooks.ui.viewholder;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.view.View;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.devmasterteam.mybooks.R;
@@ -20,14 +26,14 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Faz a atribuição dos valores para os elementos de layout
-     * */
+     */
     public void bind(BookEntity book) {
         item.textviewTitle.setText(book.getTitle());
         item.textviewAuthor.setText(book.getAuthor());
-        item.textviewGenre.setText(book.getGenre());
+        item.chipGenre.setText(book.getGenre());
 
-        // Tratamento para categoria específica
-        setGenreBackgroundColor(book.getGenre());
+        // Cor e destaque para o gênero
+        setGenreStyle(book.getGenre());
 
         // Tratamento para imagem de favorito
         updateFavoriteIcon(book.isFavorite());
@@ -49,19 +55,55 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * Define a cor de fundo do texto que representa o gênero do livro.
-     * A cor é atribuída com base no tipo de gênero do livro.
-     * - Para o gênero "Terror", a cor de fundo será vermelha.
-     * - Para o gênero "Fantasia", será usado um gradiente de fundo específico.
-     * - Para outros gêneros, a cor de fundo será teal (verde/azul).
+     * Define a cor do Chip e da barra lateral no card de acordo com o gênero.
      */
-    private void setGenreBackgroundColor(String genre) {
-        if ("Terror".equals(genre)) {
-            item.textviewGenre.setBackgroundResource(R.drawable.rounded_label_red);
-        } else if ("Fantasia".equals(genre)) {
-            item.textviewGenre.setBackgroundResource(R.drawable.rounded_label_fantasy);
-        } else {
-            item.textviewGenre.setBackgroundResource(R.drawable.rounded_label_teal);
+    private void setGenreStyle(String genre) {
+        Context context = item.getRoot().getContext();
+        int chipColor;
+        int barColor;
+
+        switch (genre) {
+            case "Terror":
+                chipColor = ContextCompat.getColor(context, R.color.red_700);
+                barColor = chipColor;
+                break;
+            case "Fantasia":
+                chipColor = ContextCompat.getColor(context, R.color.purple_500);
+                barColor = chipColor;
+                break;
+            case "Ficção policial":
+                chipColor = ContextCompat.getColor(context, R.color.teal_700);
+                barColor = chipColor;
+                break;
+            case "Cyberpunk":
+                chipColor = ContextCompat.getColor(context, R.color.cyan_700);
+                barColor = chipColor;
+                break;
+            case "Romance":
+                chipColor = ContextCompat.getColor(context, R.color.pink_500);
+                barColor = chipColor;
+                break;
+            default:
+                chipColor = ContextCompat.getColor(context, R.color.amber_500);
+                barColor = chipColor;
+                break;
         }
+
+        // Aplica cor no chip
+        item.chipGenre.setChipBackgroundColorResource(getResIdFromColorInt(chipColor, context));
+
+        // Aplica cor na barra lateral
+        item.viewGenreBar.setBackgroundColor(barColor);
+    }
+
+    /**
+     * Utilitário para obter o resource id de uma cor a partir de seu valor int.
+     * (Necessário para setChipBackgroundColorResource; pode ser melhorado se preferir outra abordagem.)
+     */
+    private int getResIdFromColorInt(int colorInt, Context context) {
+        // Esta função assume que você tem as cores definidas em colors.xml
+        // e que os nomes batem com o switch acima. Se não, pode usar setChipBackgroundColor(ColorStateList.valueOf(colorInt));
+        // ou pode remover esta função e usar diretamente setChipBackgroundColor(ColorStateList.valueOf(chipColor));
+        return R.color.amber_500;
     }
 }
