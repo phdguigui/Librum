@@ -21,21 +21,8 @@ public class BookRepository {
         books.addAll(getInitialBooks());
     }
 
-    /**
-     * O padrão Singleton garante que uma classe tenha apenas uma instância durante toda a execução do programa.
-     * Ele fornece um ponto de acesso global para acessar essa instância de forma controlada e segura.
-     * ---------------
-     * Vantagens do Singleton:
-     * - Garante que a classe tenha uma única instância.
-     * - Oferece um ponto de acesso global para essa instância.
-     * - Pode ser útil para recursos compartilhados, como conexões de banco de dados ou repositórios de dados.
-     */
     private static BookRepository instance;
 
-    /**
-     * Fornece a única instância do BookRepository.
-     * Esta é uma implementação thread-safe do padrão singleton.
-     */
     public static BookRepository getInstance() {
         synchronized (BookRepository.class) {
             if (instance == null) {
@@ -45,9 +32,6 @@ public class BookRepository {
         return instance;
     }
 
-    /**
-     * Cria uma lista inicial de livros para popular o repositório.
-     */
     private List<BookEntity> getInitialBooks() {
         List<BookEntity> initialBooks = new ArrayList<>();
         initialBooks.add(new BookEntity(1, "To Kill a Mockingbird", "Harper Lee", true, "Ficção"));
@@ -73,16 +57,10 @@ public class BookRepository {
         return initialBooks;
     }
 
-    /**
-     * Retorna todos os livros armazenados.
-     */
     public List<BookEntity> getAllBooks() {
         return books;
     }
 
-    /**
-     * Retorna todos os livros marcados como favoritos.
-     */
     public List<BookEntity> getFavoriteBooks() {
         List<BookEntity> favoriteBooks = new ArrayList<>();
         for (BookEntity book : books) {
@@ -93,9 +71,6 @@ public class BookRepository {
         return favoriteBooks;
     }
 
-    /**
-     * Busca um livro pelo ID.
-     */
     public BookEntity getBookById(int id) {
         BookEntity book = null;
         for (BookEntity b : books) {
@@ -107,9 +82,6 @@ public class BookRepository {
         return book;
     }
 
-    /**
-     * Alterna entre true e false o atributo 'favorite'.
-     */
     public void toggleFavoriteStatus(int id) {
         for (BookEntity book : books) {
             if (book.getId() == id) {
@@ -119,9 +91,6 @@ public class BookRepository {
         }
     }
 
-    /**
-     * Remove um livro pelo ID.
-     */
     public boolean deleteBook(int id) {
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getId() == id) {
@@ -133,15 +102,30 @@ public class BookRepository {
     }
 
     public void addBook(BookEntity book) {
-        // Busca o maior id já existente
         int nextId = 1;
         for (BookEntity b : books) {
             if (b.getId() >= nextId) {
                 nextId = b.getId() + 1;
             }
         }
-        // Cria uma cópia do livro com o novo id (garantindo que o id não será repetido)
         BookEntity bookWithId = new BookEntity(nextId, book.getTitle(), book.getAuthor(), book.isFavorite(), book.getGenre());
         books.add(bookWithId);
+    }
+
+    /**
+     * Atualiza um livro existente na lista pelo id.
+     * Retorna true se o livro foi encontrado e atualizado, false caso contrário.
+     */
+    public boolean updateBook(BookEntity book) {
+        for (BookEntity b : books) {
+            if (b.getId() == book.getId()) {
+                b.setTitle(book.getTitle());
+                b.setAuthor(book.getAuthor());
+                b.setGenre(book.getGenre());
+                b.setFavorite(book.isFavorite());
+                return true;
+            }
+        }
+        return false;
     }
 }

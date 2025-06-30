@@ -17,11 +17,15 @@ public class DetailsViewModel extends AndroidViewModel {
 
     // Livro que será carregado
     private final MutableLiveData<BookEntity> _book = new MutableLiveData<>();
-    public LiveData<BookEntity> book =_book;
+    public LiveData<BookEntity> book = _book;
 
     // Livro que será removido
     private final MutableLiveData<Boolean> _bookDeleted = new MutableLiveData<>();
-    public LiveData<Boolean> bookDeleted =_bookDeleted;
+    public LiveData<Boolean> bookDeleted = _bookDeleted;
+
+    // Livro atualizado
+    private final MutableLiveData<Boolean> _bookUpdated = new MutableLiveData<>();
+    public LiveData<Boolean> bookUpdated = _bookUpdated;
 
     public DetailsViewModel(@NonNull Application application) {
         super(application);
@@ -39,6 +43,8 @@ public class DetailsViewModel extends AndroidViewModel {
      */
     public void favorite(int bookId) {
         repository.toggleFavoriteStatus(bookId);
+        // Após favoritar, atualiza o objeto book
+        _book.setValue(repository.getBookById(bookId));
     }
 
     /**
@@ -46,5 +52,15 @@ public class DetailsViewModel extends AndroidViewModel {
      */
     public void delete(int bookId) {
         _bookDeleted.setValue(repository.deleteBook(bookId));
+    }
+
+    /**
+     * Atualiza um livro no repositório
+     */
+    public void updateBook(BookEntity bookEntity) {
+        boolean success = repository.updateBook(bookEntity);
+        _bookUpdated.setValue(success);
+        // Atualiza o LiveData do livro para refletir possíveis mudanças
+        _book.setValue(repository.getBookById(bookEntity.getId()));
     }
 }

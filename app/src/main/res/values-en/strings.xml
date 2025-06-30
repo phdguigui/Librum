@@ -43,5 +43,6 @@
     <string name="select_language">Select language</string>
 
     <string name="is_favorite_book">Favorite Book?</string>
+    <string name="error_update_book">Failed to update book</string>
 
 </resources>

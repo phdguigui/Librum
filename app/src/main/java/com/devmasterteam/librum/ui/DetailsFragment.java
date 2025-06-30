@@ -25,13 +25,11 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
     private FragmentDetailsBinding binding;
     private DetailsViewModel viewModel;
-    // ID de referência do livro em questão
     private int bookId = 0;
+    private BookEntity currentBook = null;
 
-    // ADICIONE ESTE MÉTODO:
     @Override
     public void onAttach(@NonNull Context context) {
-        // Garante que o contexto já está no idioma certo ANTES de inflar o layout
         super.onAttach(LocaleHelper.setLocale(context, LocaleHelper.getLanguage(context)));
     }
 
@@ -44,10 +42,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         bookId = getArguments() != null ? getArguments().getInt(BookConstants.BOOK_ID) : 0;
         viewModel.getBook(bookId);
 
-        // Atribui os eventos
         setListeners();
-
-        // Cria os observadores
         setObservers();
 
         return binding.getRoot();
@@ -59,39 +54,36 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         binding = null;
     }
 
-    /**
-     * Eventos de click
-     */
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_delete) {
+        int id = v.getId();
+        if (id == R.id.button_delete) {
             handleBookRemoval();
-        } else if (v.getId() == R.id.imageview_back) {
+        } else if (id == R.id.imageview_back) {
             requireActivity().getSupportFragmentManager().popBackStack();
-        } else if (v.getId() == R.id.checkbox_favorite) {
+        } else if (id == R.id.checkbox_favorite) {
             handleToggleFavorite();
+        } else if (id == R.id.button_save) {
+            handleBookEdit();
         }
     }
 
-    /**
-     * Atribui os eventos
-     */
     private void setListeners() {
         binding.buttonDelete.setOnClickListener(this);
         binding.imageviewBack.setOnClickListener(this);
         binding.checkboxFavorite.setOnClickListener(this);
+        binding.buttonSave.setOnClickListener(this);
     }
 
-    /**
-     * Cria os observadores
-     */
     private void setObservers() {
         viewModel.book.observe(getViewLifecycleOwner(), new Observer<>() {
             @Override
             public void onChanged(BookEntity book) {
-                binding.textviewTitle.setText(book.getTitle());
-                binding.textviewAuthorValue.setText(book.getAuthor());
-                binding.textviewGenreValue.setText(book.getGenre());
+                currentBook = book;
+                // Preenche campos editáveis com dados do livro
+                binding.edittextTitle.setText(book.getTitle());
+                binding.edittextAuthor.setText(book.getAuthor());
+                binding.edittextGenre.setText(book.getGenre());
                 binding.checkboxFavorite.setChecked(book.isFavorite());
 
                 setGenreBackgroundColor(book.getGenre());
@@ -105,12 +97,19 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
+        viewModel.bookUpdated.observe(getViewLifecycleOwner(), new Observer<>() {
+            @Override
+            public void onChanged(Boolean isUpdated) {
+                if (isUpdated) {
+                    Toast.makeText(getContext(), getString(R.string.book_saved_success), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.error_update_book), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    /**
-     * Exibe um diálogo de confirmação para a remoção de um livro.
-     * Se o usuário confirmar, o livro será removido.
-     */
     private void handleBookRemoval() {
         Context context = getContext();
         if (context != null) {
@@ -126,28 +125,33 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * Alterna o status de favorito de um livro.
-     * Se o livro for marcado como favorito, ele será desmarcado e vice-versa.
-     */
     private void handleToggleFavorite() {
         viewModel.favorite(bookId);
     }
 
-    /**
-     * Define a cor de fundo do texto que representa o gênero do livro.
-     * A cor é atribuída com base no tipo de gênero do livro.
-     * - Para o gênero "Terror", a cor de fundo será vermelha.
-     * - Para o gênero "Fantasia", será usado um gradiente de fundo específico.
-     * - Para outros gêneros, a cor de fundo será teal (verde escuro).
-     */
+    private void handleBookEdit() {
+        if (currentBook == null) return;
+        String newTitle = binding.edittextTitle.getText().toString().trim();
+        String newAuthor = binding.edittextAuthor.getText().toString().trim();
+        String newGenre = binding.edittextGenre.getText().toString().trim();
+        boolean isFavorite = binding.checkboxFavorite.isChecked();
+
+        // Atualiza o objeto atual
+        currentBook.setTitle(newTitle);
+        currentBook.setAuthor(newAuthor);
+        currentBook.setGenre(newGenre);
+        currentBook.setFavorite(isFavorite);
+
+        viewModel.updateBook(currentBook);
+    }
+
     private void setGenreBackgroundColor(String genre) {
         if ("Terror".equals(genre)) {
-            binding.textviewGenreValue.setBackgroundResource(R.drawable.rounded_label_red);
+            binding.edittextGenre.setBackgroundResource(R.drawable.rounded_label_red);
         } else if ("Fantasia".equals(genre)) {
-            binding.textviewGenreValue.setBackgroundResource(R.drawable.rounded_label_fantasy);
+            binding.edittextGenre.setBackgroundResource(R.drawable.rounded_label_fantasy);
         } else {
-            binding.textviewGenreValue.setBackgroundResource(R.drawable.rounded_label_teal);
+            binding.edittextGenre.setBackgroundResource(R.drawable.rounded_label_teal);
         }
     }
 }
