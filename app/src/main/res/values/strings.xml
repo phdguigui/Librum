@@ -4,7 +4,7 @@
     <string name="app_name">Librum</string>
 
     <!-- Títulos das telas -->
-    <string name="title_home">Home</string>
+    <string name="title_home">Página Inicial</string>
     <string name="title_favorites">Favoritos</string>
     <string name="title_book_details">Detalhes</string>
 
@@ -41,5 +41,7 @@
     <string name="night_mode_on">Modo noturno ativado</string>
     <string name="night_mode_off">Modo diurno ativado</string>
     <string name="select_language">Selecionar idioma</string>
+
+    <string name="is_favorite_book">Livro favorito?</string>
 
 </resources>

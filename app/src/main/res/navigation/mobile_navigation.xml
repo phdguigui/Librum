@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/addBookFragment"
         android:name="com.devmasterteam.librum.ui.AddBookFragment"
-        android:label="Adicionar Livro"
+        android:label="@string/add_book"
         tools:layout="@layout/fragment_add_book" />
 
     <fragment

@@ -18,16 +18,22 @@ import com.devmasterteam.librum.R;
 import com.devmasterteam.librum.databinding.FragmentDetailsBinding;
 import com.devmasterteam.librum.entity.BookEntity;
 import com.devmasterteam.librum.helper.BookConstants;
+import com.devmasterteam.librum.util.LocaleHelper;
 import com.devmasterteam.librum.viewmodel.DetailsViewModel;
 
 public class DetailsFragment extends Fragment implements View.OnClickListener {
 
     private FragmentDetailsBinding binding;
-
     private DetailsViewModel viewModel;
-
     // ID de referência do livro em questão
     private int bookId = 0;
+
+    // ADICIONE ESTE MÉTODO:
+    @Override
+    public void onAttach(@NonNull Context context) {
+        // Garante que o contexto já está no idioma certo ANTES de inflar o layout
+        super.onAttach(LocaleHelper.setLocale(context, LocaleHelper.getLanguage(context)));
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle b) {
@@ -44,7 +50,6 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         // Cria os observadores
         setObservers();
 
-        // Retorna elemento raiz
         return binding.getRoot();
     }
 
@@ -96,10 +101,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         viewModel.bookDeleted.observe(getViewLifecycleOwner(), new Observer<>() {
             @Override
             public void onChanged(Boolean isDeleted) {
-                // Notifica usuário
                 Toast.makeText(getContext(), getString(R.string.msg_removed_successfully), Toast.LENGTH_SHORT).show();
-
-                // Volta para a Fragment anterior
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
@@ -148,5 +150,4 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             binding.textviewGenreValue.setBackgroundResource(R.drawable.rounded_label_teal);
         }
     }
-
 }

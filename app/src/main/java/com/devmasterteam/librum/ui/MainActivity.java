@@ -1,5 +1,6 @@
 package com.devmasterteam.librum.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.devmasterteam.librum.R;
+import com.devmasterteam.librum.util.LocaleHelper;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +28,12 @@ import com.devmasterteam.librum.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        // Garante que o idioma salvo está aplicado ao contexto antes de tudo
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, LocaleHelper.getLanguage(newBase)));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +77,17 @@ public class MainActivity extends AppCompatActivity {
     // Exibe menu dropbox para seleção de idioma
     private void showLanguagePopup(View anchor) {
         PopupMenu popup = new PopupMenu(this, anchor);
-        popup.getMenu().add("Português");
-        popup.getMenu().add("Inglês");
+        // Use os textos internacionalizados!
+        popup.getMenu().add(getString(R.string.portuguese));
+        popup.getMenu().add(getString(R.string.english));
         popup.setOnMenuItemClickListener(menuItem -> {
-            if (menuItem.getTitle().equals("Português")) {
-                Toast.makeText(this, "Idioma: Português", Toast.LENGTH_SHORT).show();
-                // TODO: Trocar idioma para pt
-            } else if (menuItem.getTitle().equals("Inglês")) {
-                Toast.makeText(this, "Idioma: Inglês", Toast.LENGTH_SHORT).show();
-                // TODO: Trocar idioma para en
+            String title = menuItem.getTitle().toString();
+            if (title.equals(getString(R.string.portuguese))) {
+                LocaleHelper.setLocale(this, "pt");
+                recreate(); // Reinicia activity para aplicar idioma
+            } else if (title.equals(getString(R.string.english))) {
+                LocaleHelper.setLocale(this, "en");
+                recreate();
             }
             return true;
         });
@@ -89,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
         int currentMode = AppCompatDelegate.getDefaultNightMode();
         if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            Toast.makeText(this, "Modo diurno ativado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.night_mode_off), Toast.LENGTH_SHORT).show();
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            Toast.makeText(this, "Modo noturno ativado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.night_mode_on), Toast.LENGTH_SHORT).show();
         }
     }
 
