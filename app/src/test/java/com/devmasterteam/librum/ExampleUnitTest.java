@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks;
+package com.devmasterteam.librum;
 
 import org.junit.Test;
 

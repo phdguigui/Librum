@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.ui.listener;
+package com.devmasterteam.librum.ui.listener;
 
 public interface BookListener {
     void onClick(int id);

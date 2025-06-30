@@ -1,17 +1,14 @@
-package com.devmasterteam.mybooks.ui.viewholder;
+package com.devmasterteam.librum.ui.viewholder;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.view.View;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.devmasterteam.mybooks.R;
-import com.devmasterteam.mybooks.databinding.ItemBookBinding;
-import com.devmasterteam.mybooks.entity.BookEntity;
-import com.devmasterteam.mybooks.ui.listener.BookListener;
+import com.devmasterteam.librum.R;
+import com.devmasterteam.librum.databinding.ItemBookBinding;
+import com.devmasterteam.librum.entity.BookEntity;
+import com.devmasterteam.librum.ui.listener.BookListener;
 
 public class BookViewHolder extends RecyclerView.ViewHolder {
 

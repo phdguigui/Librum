@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.entity;
+package com.devmasterteam.librum.entity;
 
 public class BookEntity {
 

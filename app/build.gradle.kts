@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.devmasterteam.mybooks"
+    namespace = "com.devmasterteam.librum"
     compileSdk = 35
 
     defaultConfig {

@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.ui;
+package com.devmasterteam.librum.ui;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.devmasterteam.mybooks.R;
+import com.devmasterteam.librum.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -21,7 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.devmasterteam.mybooks.databinding.ActivityMainBinding;
+import com.devmasterteam.librum.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

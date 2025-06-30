@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.ui;
+package com.devmasterteam.librum.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +12,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.devmasterteam.mybooks.R;
-import com.devmasterteam.mybooks.databinding.FragmentHomeBinding;
-import com.devmasterteam.mybooks.entity.BookEntity;
-import com.devmasterteam.mybooks.helper.BookConstants;
-import com.devmasterteam.mybooks.ui.adapter.BookAdapter;
-import com.devmasterteam.mybooks.ui.listener.BookListener;
-import com.devmasterteam.mybooks.viewmodel.HomeViewModel;
+import com.devmasterteam.librum.R;
+import com.devmasterteam.librum.databinding.FragmentHomeBinding;
+import com.devmasterteam.librum.entity.BookEntity;
+import com.devmasterteam.librum.helper.BookConstants;
+import com.devmasterteam.librum.ui.adapter.BookAdapter;
+import com.devmasterteam.librum.ui.listener.BookListener;
+import com.devmasterteam.librum.viewmodel.HomeViewModel;
 
 import java.util.List;
 

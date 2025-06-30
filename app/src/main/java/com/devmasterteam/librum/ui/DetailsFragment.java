@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.ui;
+package com.devmasterteam.librum.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.devmasterteam.mybooks.R;
-import com.devmasterteam.mybooks.databinding.FragmentDetailsBinding;
-import com.devmasterteam.mybooks.entity.BookEntity;
-import com.devmasterteam.mybooks.helper.BookConstants;
-import com.devmasterteam.mybooks.viewmodel.DetailsViewModel;
+import com.devmasterteam.librum.R;
+import com.devmasterteam.librum.databinding.FragmentDetailsBinding;
+import com.devmasterteam.librum.entity.BookEntity;
+import com.devmasterteam.librum.helper.BookConstants;
+import com.devmasterteam.librum.viewmodel.DetailsViewModel;
 
 public class DetailsFragment extends Fragment implements View.OnClickListener {
 

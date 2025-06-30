@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.ui.adapter;
+package com.devmasterteam.librum.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.devmasterteam.mybooks.databinding.ItemBookBinding;
-import com.devmasterteam.mybooks.entity.BookEntity;
-import com.devmasterteam.mybooks.ui.listener.BookListener;
-import com.devmasterteam.mybooks.ui.viewholder.BookViewHolder;
+import com.devmasterteam.librum.databinding.ItemBookBinding;
+import com.devmasterteam.librum.entity.BookEntity;
+import com.devmasterteam.librum.ui.listener.BookListener;
+import com.devmasterteam.librum.ui.viewholder.BookViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.ui;
+package com.devmasterteam.librum.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.devmasterteam.mybooks.R;
-import com.devmasterteam.mybooks.databinding.FragmentAddBookBinding;
-import com.devmasterteam.mybooks.viewmodel.AddBookViewModel;
+import com.devmasterteam.librum.R;
+import com.devmasterteam.librum.databinding.FragmentAddBookBinding;
+import com.devmasterteam.librum.viewmodel.AddBookViewModel;
 
 public class AddBookFragment extends Fragment {
 

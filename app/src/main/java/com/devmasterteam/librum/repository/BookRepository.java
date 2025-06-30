@@ -1,6 +1,6 @@
-package com.devmasterteam.mybooks.repository;
+package com.devmasterteam.librum.repository;
 
-import com.devmasterteam.mybooks.entity.BookEntity;
+import com.devmasterteam.librum.entity.BookEntity;
 
 import java.util.ArrayList;
 import java.util.List;

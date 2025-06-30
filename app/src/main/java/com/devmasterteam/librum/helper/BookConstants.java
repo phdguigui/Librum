@@ -1,4 +1,4 @@
-package com.devmasterteam.mybooks.helper;
+package com.devmasterteam.librum.helper;
 
 public final class BookConstants {
 

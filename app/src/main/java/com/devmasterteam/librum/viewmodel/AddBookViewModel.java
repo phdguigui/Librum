@@ -1,11 +1,11 @@
-package com.devmasterteam.mybooks.viewmodel;
+package com.devmasterteam.librum.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.devmasterteam.mybooks.entity.BookEntity;
-import com.devmasterteam.mybooks.repository.BookRepository;
+import com.devmasterteam.librum.entity.BookEntity;
+import com.devmasterteam.librum.repository.BookRepository;
 
 public class AddBookViewModel extends ViewModel {
 
