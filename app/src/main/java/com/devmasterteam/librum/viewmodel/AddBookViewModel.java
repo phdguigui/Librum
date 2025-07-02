@@ -21,9 +21,25 @@ public class AddBookViewModel extends ViewModel {
             _bookSaved.setValue(false);
             return;
         }
-        // Cria o livro com id dummy (repository define o id correto)
+
+        // Cria o livro (id será ignorado pelo backend)
         BookEntity book = new BookEntity(0, title, author, isFavorite, genre);
-        repository.addBook(book);
-        _bookSaved.setValue(true);
+
+        // Chama o repositório e espera a resposta da API
+        repository.addBook(book, new retrofit2.Callback<BookEntity>() {
+            @Override
+            public void onResponse(retrofit2.Call<BookEntity> call, retrofit2.Response<BookEntity> response) {
+                if (response.isSuccessful()) {
+                    _bookSaved.postValue(true);
+                } else {
+                    _bookSaved.postValue(false);
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<BookEntity> call, Throwable t) {
+                _bookSaved.postValue(false);
+            }
+        });
     }
 }

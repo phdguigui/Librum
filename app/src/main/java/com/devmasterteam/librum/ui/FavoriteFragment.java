@@ -18,6 +18,8 @@ import com.devmasterteam.librum.ui.adapter.BookAdapter;
 import com.devmasterteam.librum.ui.listener.BookListener;
 import com.devmasterteam.librum.viewmodel.FavoriteViewModel;
 
+import java.util.ArrayList;
+
 public class FavoriteFragment extends Fragment {
 
     private FragmentFavoriteBinding binding;
@@ -85,8 +87,13 @@ public class FavoriteFragment extends Fragment {
      */
     private void setObservers() {
         viewModel.bookList.observe(getViewLifecycleOwner(), books -> {
-            showNoBooksViews(books.isEmpty());
-            adapter.updateBooks(books);
+            if (books == null || books.isEmpty()) {
+                showNoBooksViews(true);
+                adapter.updateBooks(new ArrayList<>()); // evita null
+            } else {
+                showNoBooksViews(false);
+                adapter.updateBooks(books);
+            }
         });
     }
 
