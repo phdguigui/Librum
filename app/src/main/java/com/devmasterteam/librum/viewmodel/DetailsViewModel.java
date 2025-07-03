@@ -10,6 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.devmasterteam.librum.entity.BookEntity;
 import com.devmasterteam.librum.repository.BookRepository;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DetailsViewModel extends AndroidViewModel {
 
     // Acesso a dados
@@ -35,32 +39,65 @@ public class DetailsViewModel extends AndroidViewModel {
      * Carrega livro do repositório
      */
     public void getBook(int bookId) {
-        _book.setValue(repository.getBookById(bookId));
+        repository.getBookById(bookId, new retrofit2.Callback<BookEntity>() {
+            @Override
+            public void onResponse(Call<BookEntity> call, Response<BookEntity> response) {
+                if (response.isSuccessful()) {
+                    _book.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookEntity> call, Throwable t) {
+                _book.postValue(null);
+            }
+        });
     }
 
-    /**
-     * Atualiza boolean de favorito
-     */
     public void favorite(int bookId) {
-        repository.toggleFavoriteStatus(bookId);
-        // Após favoritar, atualiza o objeto book
-        _book.setValue(repository.getBookById(bookId));
+        repository.toggleFavoriteStatus(bookId, new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                getBook(bookId); // Atualiza o LiveData após favoritar
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Erro ao favoritar - opcionalmente logar ou exibir mensagem
+            }
+        });
     }
 
-    /**
-     * Faz a remoção do livro por ID
-     */
     public void delete(int bookId) {
-        _bookDeleted.setValue(repository.deleteBook(bookId));
+        repository.deleteBook(bookId, new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                _bookDeleted.postValue(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                _bookDeleted.postValue(false);
+            }
+        });
     }
 
-    /**
-     * Atualiza um livro no repositório
-     */
     public void updateBook(BookEntity bookEntity) {
-        boolean success = repository.updateBook(bookEntity);
-        _bookUpdated.setValue(success);
-        // Atualiza o LiveData do livro para refletir possíveis mudanças
-        _book.setValue(repository.getBookById(bookEntity.getId()));
+        repository.updateBook(bookEntity, new retrofit2.Callback<BookEntity>() {
+            @Override
+            public void onResponse(Call<BookEntity> call, Response<BookEntity> response) {
+                if (response.isSuccessful()) {
+                    _bookUpdated.postValue(true);
+                    _book.postValue(response.body());
+                } else {
+                    _bookUpdated.postValue(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookEntity> call, Throwable t) {
+                _bookUpdated.postValue(false);
+            }
+        });
     }
 }
